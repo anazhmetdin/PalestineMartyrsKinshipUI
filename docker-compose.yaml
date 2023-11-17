@@ -1,0 +1,8 @@
+version: "3"
+
+services:
+  ng:
+    container_name: ng
+    build: .
+    ports:
+      - "${ANGULAR_PORT}:80"
