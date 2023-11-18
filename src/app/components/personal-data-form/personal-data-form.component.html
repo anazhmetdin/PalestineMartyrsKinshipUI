@@ -1,0 +1,11 @@
+<p i18n="link@@hello">hello</p>
+<p i18n="link@@hello2">personal-datmmma-form works!</p>
+<p>{{localeID}}</p>
+
+<form [formGroup]="bioSection" (ngSubmit)="callingFunction()">
+  <label>
+    Name:
+    <input type="text" formControlName="Name">
+  </label>
+  <button type="submit">Submit Application</button>
+</form>
