@@ -114,7 +114,7 @@
               "browserTarget": "palestine-martyrs-kinship-ui:build:development,ar"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development,en"
         },
         "extract-i18n": {
           "builder": "@angular-builders/custom-webpack:extract-i18n",
