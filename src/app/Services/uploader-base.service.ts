@@ -23,6 +23,6 @@ export abstract class UploaderBaseService {
   }
 
   cancel(fileGUUID4: string) {
-    return this.client.delete<string>(this.CancelUrl+'/'+fileGUUID4+'/');
+    return this.client.delete<string>(this.CancelUrl+'/'+fileGUUID4+'/', { withCredentials: true });
   }
 }

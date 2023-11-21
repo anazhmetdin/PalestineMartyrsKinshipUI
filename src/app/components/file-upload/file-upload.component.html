@@ -6,12 +6,12 @@
   </div>
 
   <div class="py-3">
-    <input type="file" class="form-control" (change)="onFileChanged($event)">
+    <input #fileInput type="file" class="form-control" (change)="onFileChanged($event)">
   </div>
 
   <div class="d-flex justify-content-end" style="gap: 1rem;">
-    <button type="button" class="btn btn-primary" (click)="onUpload()">Upload</button>
-    <button type="button" class="btn btn-secondary" (click)="onRemove()">Cancel</button>
+    <button [disabled]="!selectedFile || status==FormStates.loading" type="button" class="btn btn-primary" (click)="onUpload()">Upload</button>
+    <button [disabled]="status!=FormStates.loading" type="button" class="btn btn-secondary" (click)="onRemove()">Cancel</button>
   </div>
 
 </div>

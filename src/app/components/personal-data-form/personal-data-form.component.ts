@@ -25,7 +25,6 @@ export class PersonalDataFormComponent {
   });
 
   callingFunction() {
-    console.log(environment.APP_API_ENDPOINT)
     if (this.bioSection.controls.Name.value)
       this.PersonalData.GetNameRomanized(this.bioSection.controls.Name.value)
         .subscribe({

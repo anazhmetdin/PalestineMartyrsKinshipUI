@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { FormStates } from 'src/app/Enums/form-states';
 import { FileUploaderResponse, IFileUploader } from 'src/app/Interfaces/IFileUploader';
 
@@ -21,6 +21,8 @@ export class FileUploadComponent {
   title!: string;
   @Input()
   show_alerts!: boolean;
+  @ViewChild('fileInput')
+  fileInput!: ElementRef;
 
   onFileChanged(event: any) {
     this.selectedFile = event.target.files[0];
@@ -28,12 +30,13 @@ export class FileUploadComponent {
   }
 
   onUpload() {
-    if (this.selectedFile)
-      this.resetCounters();
-      this.status = FormStates.loading;
-      this.alert = 'uploading'
-      console.log('loading')
-      this.uploadNextChunk();
+    if (!this.selectedFile)
+      return;
+
+    this.resetCounters();
+    this.status = FormStates.loading;
+    this.alert = 'uploading';
+    this.uploadNextChunk();
   }
 
   private uploadNextChunk() {
@@ -57,7 +60,9 @@ export class FileUploadComponent {
         next: (value:FileUploaderResponse) => {
           this.fileGUUID4 = value.fileGUUID4
           this.currentChunkIndex++;
-          if (!this.cancelled && this.selectedFile && start < this.selectedFile.size) {
+          if (this.cancelled) {
+            return;
+          } else if (this.selectedFile && start < this.selectedFile.size) {
             this.uploadNextChunk();
           } else {
             this.alert = "File uploaded successfully";
@@ -66,7 +71,7 @@ export class FileUploadComponent {
           }
         },
         error: (err) => {
-          this.alert = err;
+          this.alert = err.error;
           this.status = FormStates.error;
         }
       }
@@ -82,21 +87,23 @@ export class FileUploadComponent {
     this.selectedFile = undefined;
     this.fileGUUID4 = undefined;
     this.resetCounters()
+    this.fileInput.nativeElement.value = null
   }
 
   onRemove() {
     if (!this.fileGUUID4)
       return
+    this.cancelled = true
+    this.status = FormStates.none
     this.fileUploader.cancel(this.fileGUUID4).subscribe({
-      next: () => {
-        this.status = FormStates.success
-        this.alert = "File uploaded successfully"
-        this.resetUploader();
-      },
       error: (err) => {
-        this.alert = err;
+        this.alert = err.error;
         this.status = FormStates.error;
       }
     });
+  }
+
+  public get FormStates(): typeof FormStates {
+    return FormStates;
   }
 }
