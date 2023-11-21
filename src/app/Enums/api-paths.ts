@@ -1,3 +1,5 @@
 export enum ApiPaths {
-  romanize = "/romanizer"
+  romanize = "/romanizer",
+  KinshipManager = "/kinshipmanager",
+  KinshipManagerUpload = "/upload"
 }

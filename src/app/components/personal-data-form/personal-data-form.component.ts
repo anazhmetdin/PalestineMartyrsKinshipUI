@@ -2,6 +2,7 @@ import { Component, Inject, LOCALE_ID } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PersonalDataService } from 'src/app/Services/romanizer.service';
+import { UploadPeopleDataService } from 'src/app/Services/upload-people-data.service';
 import { environment } from 'src/environment/environment';
 
 @Component({
@@ -12,6 +13,7 @@ export class PersonalDataFormComponent {
   localeID: string
 
   constructor(@Inject(LOCALE_ID) locale: string,
+    readonly fileuploader: UploadPeopleDataService,
     private readonly PersonalData: PersonalDataService,
     private router: Router,)
   {

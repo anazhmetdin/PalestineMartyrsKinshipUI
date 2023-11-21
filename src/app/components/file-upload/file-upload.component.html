@@ -1,0 +1,17 @@
+<div class="m-3">
+
+  <div *ngIf="title || show_alerts" class="d-flex flex-row">
+    <h4 *ngIf="title" class="pe-2">{{title}}</h4>
+    <app-form-alerts *ngIf="show_alerts" class="flex-grow-1" [alert]="alert" [state]="status"></app-form-alerts>
+  </div>
+
+  <div class="py-3">
+    <input type="file" class="form-control" (change)="onFileChanged($event)">
+  </div>
+
+  <div class="d-flex justify-content-end" style="gap: 1rem;">
+    <button type="button" class="btn btn-primary" (click)="onUpload()">Upload</button>
+    <button type="button" class="btn btn-secondary" (click)="onRemove()">Cancel</button>
+  </div>
+
+</div>
